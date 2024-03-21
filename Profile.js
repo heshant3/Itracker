@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import React from "react";
 import { ScaledSheet } from "react-native-size-matters";
@@ -55,11 +56,15 @@ export default function Profile() {
             </View>
           </View>
         </View>
-        <View style={styles.SubmitbtnView}>
+        <Text style={styles.RoutineText}>Routine Analyse </Text>
+        <View style={styles.Box1}>
+          <Image source={require("./assets/route.png")} style={styles.image} />
+        </View>
+        {/* <View style={styles.SubmitbtnView}>
           <TouchableOpacity style={styles.Submitbtn} onPress={handleLogout}>
             <Text style={styles.SubmitText}>Log out</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     </SafeAreaView>
   );
@@ -111,6 +116,7 @@ const styles = ScaledSheet.create({
     backgroundColor: "#FFFF",
     shadowColor: "#49A8FF",
     justifyContent: "center",
+    overflow: "hidden",
   },
 
   BodyBox: {
@@ -138,6 +144,35 @@ const styles = ScaledSheet.create({
     fontSize: "20@mvs",
     color: "#000000",
     fontFamily: "Inter_400Regular",
+  },
+
+  RoutineText: {
+    marginTop: 50,
+    marginBottom: 20,
+    fontSize: "25@mvs",
+    color: "#5B5B5B",
+    fontFamily: "Inter_400Regular",
+    marginLeft: 30,
+  },
+
+  Box1: {
+    alignSelf: "center",
+    width: "90%",
+    height: 200,
+    elevation: 10,
+    borderRadius: 30,
+    backgroundColor: "#FFFF",
+    shadowColor: "#49A8FF",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "#49A8FF",
+  },
+
+  image: {
+    resizeMode: "contain",
+    width: "110%",
+    height: "130%",
   },
 
   SubmitbtnView: {
