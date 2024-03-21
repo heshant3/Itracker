@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import Navigation from "./Navigation";
+import {
+  useFonts,
+  Inter_600SemiBold,
+  Inter_300Light,
+  Inter_400Regular,
+  Inter_500Medium,
+} from "@expo-google-fonts/inter";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => {
+  let [fontsLoaded] = useFonts({
+    Inter_600SemiBold,
+    Inter_300Light,
+    Inter_400Regular,
+    Inter_500Medium,
+  });
+
+  if (!fontsLoaded) {
+    return null; // Render nothing until fonts are loaded
+  }
+  return <Navigation />;
+};
+
+export default App;
