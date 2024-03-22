@@ -4,6 +4,8 @@ import * as SplashScreen from "expo-splash-screen";
 import No_internet from "./No_internet";
 import NetInfo from "@react-native-community/netinfo";
 import Navigation from "./Navigation";
+import * as Location from "expo-location";
+import { UserLocationContext } from "./Contex/UserLocationContex";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -16,6 +18,8 @@ import {
 } from "@expo-google-fonts/inter";
 
 const App = () => {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
   let [fontsLoaded] = useFonts({
     Inter_600SemiBold,
     Inter_300Light,
@@ -42,10 +46,27 @@ const App = () => {
     };
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
   if (!fontsLoaded) {
     return; // Render nothing until fonts are loaded
   }
-  return isConnected ? <Navigation /> : <No_internet />;
+  return (
+    <UserLocationContext.Provider value={{ location, setLocation }}>
+      <Navigation />
+    </UserLocationContext.Provider>
+  );
 };
 
 export default App;

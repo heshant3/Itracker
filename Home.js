@@ -18,11 +18,11 @@ import {
   FontAwesome5,
   FontAwesome6,
 } from "@expo/vector-icons";
-import MapView, { Marker } from "react-native-maps";
 import { ref, onValue, update } from "firebase/database";
 import { db } from "./config";
 import { useNavigation } from "@react-navigation/native";
-import * as Notifications from "expo-notifications";
+// import * as Notifications from "expo-notifications";
+import Map from "./Map";
 
 export default function VehicleSelect() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -56,7 +56,7 @@ export default function VehicleSelect() {
       const accidentValue = snapshot.val();
       if (accidentValue === 1) {
         setModalVisible(true);
-        sendPushNotification();
+        // sendPushNotification();
       } else {
         setModalVisible(false);
       }
@@ -71,19 +71,6 @@ export default function VehicleSelect() {
     };
   }, []);
 
-  const [origin, setOrigin] = useState({
-    latitude: 6.82153,
-    longitude: 80.04161,
-  });
-
-  const handleMarkerDragEnd = (e) => {
-    // Update the origin state with the new latitude and longitude
-    setOrigin({
-      latitude: e.nativeEvent.coordinate.latitude,
-      longitude: e.nativeEvent.coordinate.longitude,
-    });
-  };
-
   const navigateToHomePage = () => {
     // Navigate to the home page
     navigation.navigate("Profile"); // Replace "HomePage" with the name of the screen you want to navigate to
@@ -97,16 +84,16 @@ export default function VehicleSelect() {
     update(ref(db), { IgnitionStatus: status });
   };
 
-  const sendPushNotification = async () => {
-    // Send push notification using Expo Notifications
-    await Notifications.scheduleNotificationAsync({
-      content: {
-        title: "Ignition Status",
-        body: "Ignition Status is 1.",
-      },
-      trigger: null,
-    });
-  };
+  // const sendPushNotification = async () => {
+  //   // Send push notification using Expo Notifications
+  //   await Notifications.scheduleNotificationAsync({
+  //     content: {
+  //       title: "Ignition Status",
+  //       body: "Ignition Status is 1.",
+  //     },
+  //     trigger: 2,
+  //   });
+  // };
 
   const engineColor = IgnitionStatus === 1 ? "#49a8ff" : "#595959";
 
@@ -123,22 +110,7 @@ export default function VehicleSelect() {
         />
       </View>
       <View style={{ flex: 1 }}>
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: origin.latitude,
-            longitude: origin.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-          }}
-        >
-          {/* Marker with draggable option */}
-          <Marker
-            draggable
-            coordinate={origin}
-            onDragEnd={handleMarkerDragEnd} // Function to handle marker drag end
-          />
-        </MapView>
+        <Map />
         <TouchableOpacity style={styles.SOSIcon} onPress={handleSOSCall}>
           <MaterialCommunityIcons
             name="alarm-light"
@@ -175,10 +147,17 @@ export default function VehicleSelect() {
       </View>
       <View style={styles.Bottom}>
         <TouchableOpacity
-          style={styles.Box}
           onPress={() => updateIgnitionStatus(IgnitionStatus === 1 ? 0 : 1)}
+          style={[
+            styles.Box,
+            { backgroundColor: IgnitionStatus === 1 ? "#fff" : "#fff" },
+          ]}
         >
-          <MaterialCommunityIcons name="engine" size={30} color={engineColor} />
+          <MaterialCommunityIcons
+            name={IgnitionStatus === 0 ? "engine-off" : "engine"}
+            size={30}
+            color={IgnitionStatus === 1 ? "#49a8ff" : engineColor}
+          />
         </TouchableOpacity>
         <View style={styles.Box2}>
           <Ionicons name="speedometer" size={30} color="#49a8ff" />
@@ -222,11 +201,6 @@ const styles = ScaledSheet.create({
     fontSize: "25@mvs",
     fontFamily: "Inter_600SemiBold",
     color: "#595959",
-  },
-
-  map: {
-    width: "100%",
-    height: "100%",
   },
 
   Bottom: {

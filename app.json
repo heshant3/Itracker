@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -22,17 +20,30 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.kpkrishantha3.Itracker"
+      "package": "com.kpkrishantha3.Itracker",
+      "config": {
+        "googleMapsApiKey": "AIzaSyDlTPQhkcbV-anXzV4fpGawJyxhZ7n-wFs"
+      },
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
     ],
     "extra": {
       "eas": {
-        "projectId": "37f3164f-e99d-4370-9d03-79307fd75310"
+        "projectId": "1154cdd5-837d-4d39-be58-4aa7afa3d560"
       }
     }
   }
