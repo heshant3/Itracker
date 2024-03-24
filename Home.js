@@ -23,9 +23,11 @@ import { db } from "./config";
 import { useNavigation } from "@react-navigation/native";
 // import * as Notifications from "expo-notifications";
 import Map from "./Map";
+import * as Haptics from "expo-haptics";
 
 export default function VehicleSelect() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible2, setModalVisible2] = useState(false);
   const [IgnitionStatus, setIgnitionStatus] = useState(null);
   const [Speed, setSpeed] = useState(null);
   const [Temperature, setTemperature] = useState(null);
@@ -40,9 +42,20 @@ export default function VehicleSelect() {
     const TemperatureRef = ref(db, "Temperature");
     const SeatRef = ref(db, "Seat01");
 
-    const unsubscribeIgnition = onValue(IgnitionStatusRef, (snapshot) =>
-      setIgnitionStatus(snapshot.val())
-    );
+    const unsubscribeIgnition = onValue(IgnitionStatusRef, (snapshot) => {
+      const ignitionStatus = snapshot.val();
+      setIgnitionStatus(ignitionStatus); // Assuming setIgnitionStatus is a state setter function
+
+      if (ignitionStatus === 1 && !modalVisible2) {
+        // Check if ignitionStatus is 1 and modalVisible2 is false
+        setModalVisible2(true);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+      } else if (ignitionStatus !== 1 && modalVisible2) {
+        // Check if ignitionStatus is not 1 and modalVisible2 is true
+        setModalVisible2(false);
+      }
+    });
+
     const unsubscribeSpeed = onValue(SpeedRef, (snapshot) =>
       setSpeed(snapshot.val())
     );
@@ -152,6 +165,7 @@ export default function VehicleSelect() {
             styles.Box,
             { backgroundColor: IgnitionStatus === 1 ? "#fff" : "#fff" },
           ]}
+          disabled={IgnitionStatus == 0}
         >
           <MaterialCommunityIcons
             name={IgnitionStatus === 0 ? "engine-off" : "engine"}
@@ -165,7 +179,7 @@ export default function VehicleSelect() {
         </View>
       </View>
 
-      {/* Modal */}
+      {/* Accident Alert Modal */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -179,8 +193,28 @@ export default function VehicleSelect() {
           onTouchEnd={() => setModalVisible(!modalVisible)}
         >
           <View style={styles.modalView}>
-            <FontAwesome5 name="car-crash" size={30} color="#ff5866" />
+            <FontAwesome5 name="car-crash" size={24} color="#ff5866" />
             <Text style={styles.Text}>Accident Detected</Text>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Engine Alert Modal */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible2}
+        onRequestClose={() => {
+          setModalVisible2(!modalVisible2);
+        }}
+      >
+        <View
+          style={styles.centeredView}
+          onTouchEnd={() => setModalVisible2(!modalVisible2)}
+        >
+          <View style={styles.modalView}>
+            <MaterialCommunityIcons name="engine" size={30} color="#49a8ff" />
+            <Text style={styles.Text}>Engine On</Text>
           </View>
         </View>
       </Modal>

@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -21,9 +23,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.kpkrishantha3.Itracker",
-      "config": {
-        "googleMapsApiKey": "AIzaSyDlTPQhkcbV-anXzV4fpGawJyxhZ7n-wFs"
-      },
+      "googleMapsApiKey": "AIzaSyDlTPQhkcbV-anXzV4fpGawJyxhZ7n-wFs",
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
@@ -43,7 +43,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "1154cdd5-837d-4d39-be58-4aa7afa3d560"
+        "projectId": "56c7b3bc-62ae-4e50-ac1f-b6ba2827cfcf"
       }
     }
   }

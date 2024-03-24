@@ -32,6 +32,7 @@ export default function Map() {
         region={mapRegion}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
+        apiKey={AIzaSyDlTPQhkcbV - anXzV4fpGawJyxhZ7n - wFs}
       >
         {/* Marker with draggable option */}
       </MapView>
