@@ -46,7 +46,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const checkLocationPermission = async () => {
+    (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
@@ -59,26 +59,7 @@ const App = () => {
       } catch (error) {
         setErrorMsg("Location request failed: " + error.message);
       }
-    };
-
-    checkLocationPermission();
-
-    const handleAppStateChange = (nextAppState) => {
-      if (nextAppState === "active") {
-        checkLocationPermission();
-      }
-    };
-
-    // Subscribe to app state changes
-    const appStateSubscription = AppState.addEventListener(
-      "change",
-      handleAppStateChange
-    );
-
-    return () => {
-      // Unsubscribe from app state changes
-      appStateSubscription.remove();
-    };
+    })();
   }, []);
 
   if (!fontsLoaded) {
