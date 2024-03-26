@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -23,7 +21,11 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.kpkrishantha3.Itracker",
-      "googleMapsApiKey": "AIzaSyDlTPQhkcbV-anXzV4fpGawJyxhZ7n-wFs",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDlTPQhkcbV-anXzV4fpGawJyxhZ7n-wFs"
+        }
+      },
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"

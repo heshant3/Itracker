@@ -122,15 +122,24 @@ export default function VehicleSelect() {
           onPress={navigateToHomePage}
         />
       </View>
-      <View style={{ flex: 1 }}>
-        <Map />
-        <TouchableOpacity style={styles.SOSIcon} onPress={handleSOSCall}>
-          <MaterialCommunityIcons
-            name="alarm-light"
-            size={30}
-            color="#ff5866"
-          />
-        </TouchableOpacity>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "flex-end",
+        }}
+      >
+        <View>
+          <Map />
+        </View>
+        <View style={styles.SOSButton}>
+          <TouchableOpacity style={styles.SOSIcon} onPress={handleSOSCall}>
+            <MaterialCommunityIcons
+              name="alarm-light"
+              size={30}
+              color="#ff5866"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.Bottom}>
@@ -318,16 +327,16 @@ const styles = ScaledSheet.create({
   },
 
   SOSIcon: {
-    alignContent: "center",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
-    margin: 70,
-    position: "absolute",
     backgroundColor: "#fff",
     width: 50,
     height: 50,
-    marginTop: 430,
-    marginLeft: 340,
+    margin: 30,
+  },
+  SOSButton: {
+    position: "absolute",
+    alignSelf: "flex-end",
   },
 });

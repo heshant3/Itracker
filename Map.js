@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { UserLocationContext } from "./Contex/UserLocationContex";
 
 export default function Map() {
@@ -32,7 +32,6 @@ export default function Map() {
         region={mapRegion}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
-        apiKey={AIzaSyDlTPQhkcbV - anXzV4fpGawJyxhZ7n - wFs}
       >
         {/* Marker with draggable option */}
       </MapView>

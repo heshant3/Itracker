@@ -38,25 +38,25 @@ export default function Profile() {
             <View style={styles.BodyBoxContain}>
               <Text style={styles.Text}>Name: </Text>
               <Text style={styles.Text2} paddingLeft={78}>
-                Jony Amex
+                Dunidu Kalubowila
               </Text>
             </View>
 
             <View style={styles.BodyBoxContain}>
               <Text style={styles.Text}>Vehicle Type: </Text>
               <Text style={styles.Text2} paddingLeft={20}>
-                6595876038V
+                Sedan Car
               </Text>
             </View>
             <View style={styles.BodyBoxContain}>
               <Text style={styles.Text}>Reg Number:</Text>
               <Text style={styles.Text2} paddingLeft={28}>
-                3467754
+                CAB 3453
               </Text>
             </View>
           </View>
         </View>
-        <Text style={styles.RoutineText}>Routine Analyse </Text>
+        <Text style={styles.RoutineText}>Routine Analyses </Text>
         <View style={styles.Box1}>
           <Image source={require("./assets/route.png")} style={styles.image} />
         </View>
